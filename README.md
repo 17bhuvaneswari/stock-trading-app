@@ -11,10 +11,8 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)]()
 
-![Repo Size](https://img.shields.io/github/repo-size/snehalathaArakkonam/stockpulse-mern?style=flat-square)
-![Last Commit](https://img.shields.io/github/last-commit/snehalathaArakkonam/stockpulse-mern?style=flat-square)
-![Issues](https://img.shields.io/github/issues/snehalathaArakkonam/stockpulse-mern?style=flat-square)
-![Stars](https://img.shields.io/github/stars/snehalathaArakkonam/stockpulse-mern?style=flat-square)
+## DEMO LINK
+https://photos.app.goo.gl/QsPavesJrhpmXDGf6
 
 </div>
 
@@ -45,53 +43,8 @@
 
 StockPulse follows a **3-tier client-server architecture** using the MERN stack, with real-time price updates powered by Socket.io and a RESTful API layer connecting the client to MongoDB.
 
-```mermaid
-flowchart TB
-    subgraph Client["🖥️ CLIENT TIER — React.js"]
-        A1[React Components]
-        A2[Redux / Context API]
-        A3[Axios HTTP Client]
-        A4[Socket.io Client]
-    end
+<img width="1440" height="1160" alt="image" src="https://github.com/user-attachments/assets/f30df102-9fb4-428e-8383-785602e09c9e" />
 
-    subgraph Server["⚙️ APPLICATION TIER — Node.js + Express.js"]
-        B1[Express Router]
-        B2[Auth Middleware — JWT]
-        B3[Controllers]
-        B4[Trading Engine Service]
-        B5[Socket.io Server]
-    end
-
-    subgraph Database["🗄️ DATA TIER — MongoDB"]
-        C1[(Users Collection)]
-        C2[(Stocks Collection)]
-        C3[(Portfolios Collection)]
-        C4[(Transactions Collection)]
-        C5[(Watchlist Collection)]
-    end
-
-    subgraph External["🌐 External Services"]
-        D1[Stock Market API — NSE/Mock Feed]
-    end
-
-    A1 --> A2 --> A3
-    A3 -- REST API / HTTPS --> B1
-    A4 -- WebSocket --> B5
-    B1 --> B2 --> B3 --> B4
-    B5 --> B4
-    B4 -- Mongoose ODM --> C1
-    B4 --> C2
-    B4 --> C3
-    B4 --> C4
-    B4 --> C5
-    B4 -- Fetch Live Prices --> D1
-    D1 -- Push Price Updates --> B5
-
-    style Client fill:#1a1a2e,stroke:#00d4ff,color:#fff
-    style Server fill:#16213e,stroke:#00ff9d,color:#fff
-    style Database fill:#0f3460,stroke:#ffcf5c,color:#fff
-    style External fill:#2d132c,stroke:#ff4e50,color:#fff
-```
 
 ### Architecture Layers
 
@@ -107,73 +60,18 @@ flowchart TB
 ---
 
 ## 🗂️ ER Diagram
+# frontend 
+<img width="3091" height="1491" alt="image" src="https://github.com/user-attachments/assets/dea800b9-6c3f-4890-85c6-e7967c3dfcdd" />
 
-```mermaid
-erDiagram
-    USER ||--o{ TRANSACTION : places
-    USER ||--|| PORTFOLIO : owns
-    USER ||--o{ WATCHLIST : maintains
-    PORTFOLIO ||--o{ HOLDING : contains
-    STOCK ||--o{ HOLDING : "referenced in"
-    STOCK ||--o{ TRANSACTION : "traded as"
-    STOCK ||--o{ WATCHLIST : "listed in"
 
-    USER {
-        ObjectId _id PK
-        string name
-        string email UK
-        string password
-        string role
-        number walletBalance
-        date createdAt
-    }
+# backend
+<img width="1221" height="602" alt="image" src="https://github.com/user-attachments/assets/2b1c6ca0-12ec-408b-8b9d-b9cfca50be7b" />
 
-    STOCK {
-        ObjectId _id PK
-        string symbol UK
-        string companyName
-        number currentPrice
-        number previousClose
-        number dayHigh
-        number dayLow
-        string sector
-        date updatedAt
-    }
+# Database
+<img width="942" height="672" alt="image" src="https://github.com/user-attachments/assets/9ce92163-e140-40f0-a9c1-236ea5e03550" />
 
-    PORTFOLIO {
-        ObjectId _id PK
-        ObjectId userId FK
-        number totalInvested
-        number currentValue
-        date lastUpdated
-    }
-
-    HOLDING {
-        ObjectId _id PK
-        ObjectId portfolioId FK
-        ObjectId stockId FK
-        number quantity
-        number avgBuyPrice
-    }
-
-    TRANSACTION {
-        ObjectId _id PK
-        ObjectId userId FK
-        ObjectId stockId FK
-        string type
-        number quantity
-        number price
-        number totalAmount
-        date timestamp
-    }
-
-    WATCHLIST {
-        ObjectId _id PK
-        ObjectId userId FK
-        ObjectId stockId FK
-        date addedOn
-    }
-```
+# stocktrading-app
+<img width="984" height="710" alt="image" src="https://github.com/user-attachments/assets/32aacf6d-d85b-4d9c-8e09-9f22ba46d930" />
 
 ---
 
@@ -214,29 +112,7 @@ erDiagram
 
 ## 🔄 User Flow
 
-```mermaid
-flowchart TD
-    Start([User Visits App]) --> Auth{Registered?}
-    Auth -- No --> Signup[Sign Up]
-    Auth -- Yes --> Login[Login]
-    Signup --> Login
-    Login --> Dashboard[Dashboard: Wallet + Portfolio Summary]
-    Dashboard --> Browse[Browse Stock Listings]
-    Browse --> View[View Stock Detail Page — Live Price + Chart]
-    View --> Decision{Action}
-    Decision -- Buy --> Buy[Enter Quantity → Confirm Buy]
-    Decision -- Sell --> Sell[Enter Quantity → Confirm Sell]
-    Decision -- Watchlist --> Watch[Add to Watchlist]
-    Buy --> Update[Wallet & Portfolio Updated]
-    Sell --> Update
-    Watch --> Dashboard
-    Update --> History[Transaction Recorded in History]
-    History --> Dashboard
-    Dashboard --> Logout([Logout])
-
-    style Start fill:#00ff9d,stroke:#000,color:#000
-    style Logout fill:#ff4e50,stroke:#000,color:#fff
-```
+<img width="1440" height="1968" alt="image" src="https://github.com/user-attachments/assets/884575b5-a0f0-47ec-b2a2-7c5b8bd5b462" />
 
 ---
 
@@ -626,49 +502,11 @@ npm run dev
 - [ ] Test signup → login → buy stock → check portfolio
 
 ---
-
-## 📸 Output Screenshots
-
-<div align="center">
-
-| Login Page | Dashboard |
-|---|---|
-| ![Login](./screenshots/login.png) | ![Dashboard](./screenshots/dashboard.png) |
-
-| Stock Detail + Live Chart | Portfolio Page |
-|---|---|
-| ![Stock Detail](./screenshots/stock-detail.png) | ![Portfolio](./screenshots/portfolio.png) |
-
-| Transaction History | Watchlist |
-|---|---|
-| ![Transactions](./screenshots/transactions.png) | ![Watchlist](./screenshots/watchlist.png) |
-
-</div>
-
-> 📁 Place actual screenshots inside a `/screenshots` folder in the repo root before pushing, so images render correctly on GitHub.
-
----
-
-## 🔗 Drive Links
-
-| Resource | Link |
-|---|---|
-| 📄 Project Report / Documentation | `[Add Google Drive Link Here]` |
-| 🎥 Demo Video | `[Add Google Drive / YouTube Link Here]` |
-| 🖼️ Screenshots Folder (Full Res) | `[Add Google Drive Link Here]` |
-| 📊 PPT / Presentation | `[Add Google Drive Link Here]` |
-
----
-
 <div align="center">
 
 ## 🙏 Acknowledgements
 
 Built with ❤️ by **Team StockPulse** as part of academic project work.
-
-**మా టీమ్ గురించి:**
-ఈ ప్రాజెక్ట్ ను MERN Stack ఉపయోగించి, రియల్ టైమ్ స్టాక్ ట్రేడింగ్ ను సిమ్యులేట్ చేయడానికి రూపొందించాము. ఇది మా బృందం యొక్క సమిష్టి కృషి ఫలితం — ప్రతి సభ్యుడు ఫ్రంటెండ్, బ్యాకెండ్, డేటాబేస్ మరియు టెస్టింగ్ లలో తమ వంతు పాత్ర పోషించారు.
-
 *"Markets move in cycles. So does learning — keep building, keep iterating."* 📈
 
 ---
